@@ -1,0 +1,116 @@
+{
+  "entities": {
+    "users": {
+      "path": "users/{userId}",
+      "fields": {
+        "uid": { "type": "string", "description": "Unique user ID matching auth.uid" },
+        "email": { "type": "string", "description": "User email address" },
+        "createdAt": { "type": "number", "description": "Creation epoch timestamp" },
+        "lastLoginAt": { "type": "number", "description": "Last login epoch timestamp" }
+      },
+      "roles": {
+        "read": ["owner"],
+        "write": ["owner"]
+      }
+    },
+    "profiles": {
+      "path": "profiles/{userId}",
+      "fields": {
+        "uid": { "type": "string", "description": "Owner user ID" },
+        "firstName": { "type": "string", "description": "Display first name" },
+        "age": { "type": "number", "description": "User age (18-120)" },
+        "bio": { "type": "string", "description": "Short self-intro bio" },
+        "interests": { "type": "array", "description": "List of interest tags (up to 12)" },
+        "avatarEmoji": { "type": "string", "description": "Selected avatar emoji" },
+        "avatarBgHex": { "type": "string", "description": "Hex color code for avatar background" },
+        "profilePhotoUrl": { "type": "string", "description": "Optional photo URL or base64" },
+        "isOpen": { "type": "boolean", "description": "Visibility toggle for discovery and waves" },
+        "dailyWavesRemaining": { "type": "number", "description": "Remaining waves for the day (0-5)" },
+        "lastWaveResetDate": { "type": "string", "description": "Date string YYYY-MM-DD for wave quota reset" },
+        "createdAt": { "type": "number", "description": "Epoch timestamp" },
+        "updatedAt": { "type": "number", "description": "Epoch timestamp" }
+      },
+      "roles": {
+        "read": ["authenticated"],
+        "write": ["owner"]
+      }
+    },
+    "sayvis": {
+      "path": "sayvis/{sayviId}",
+      "fields": {
+        "id": { "type": "string", "description": "Wave unique ID" },
+        "senderId": { "type": "string", "description": "User UID who sent the SAYVI" },
+        "receiverId": { "type": "string", "description": "User UID who received the SAYVI" },
+        "status": { "type": "string", "description": "PENDING, ACCEPTED, DECLINED, MAYBE_LATER" },
+        "note": { "type": "string", "description": "Discreet wave note" },
+        "createdAt": { "type": "number", "description": "Epoch timestamp" },
+        "updatedAt": { "type": "number", "description": "Epoch timestamp" }
+      },
+      "roles": {
+        "read": ["sender", "receiver"],
+        "write": ["sender", "receiver"]
+      }
+    },
+    "connections": {
+      "path": "connections/{connectionId}",
+      "fields": {
+        "id": { "type": "string", "description": "Connection unique ID" },
+        "user1Id": { "type": "string", "description": "First participant user ID" },
+        "user2Id": { "type": "string", "description": "Second participant user ID" },
+        "participantIds": { "type": "array", "description": "Array of both participant UIDs" },
+        "status": { "type": "string", "description": "Connection status: ACCEPTED" },
+        "lastMessage": { "type": "string", "description": "Snippet of the last sent message" },
+        "lastMessageTime": { "type": "string", "description": "Human readable last message time" },
+        "createdAt": { "type": "number", "description": "Epoch timestamp" }
+      },
+      "roles": {
+        "read": ["participant"],
+        "write": ["participant"]
+      }
+    },
+    "messages": {
+      "path": "messages/{messageId}",
+      "fields": {
+        "id": { "type": "string", "description": "Message unique ID" },
+        "connectionId": { "type": "string", "description": "Associated connection ID" },
+        "senderId": { "type": "string", "description": "Sender UID" },
+        "receiverId": { "type": "string", "description": "Receiver UID" },
+        "text": { "type": "string", "description": "Message content (up to 1000 chars)" },
+        "isRead": { "type": "boolean", "description": "Read status flag" },
+        "createdAt": { "type": "number", "description": "Epoch timestamp" }
+      },
+      "roles": {
+        "read": ["sender", "receiver"],
+        "write": ["sender"]
+      }
+    },
+    "blocks": {
+      "path": "blocks/{blockId}",
+      "fields": {
+        "id": { "type": "string", "description": "Block record ID: blockerId_blockedId" },
+        "blockerId": { "type": "string", "description": "User UID who issued the block" },
+        "blockedId": { "type": "string", "description": "User UID being blocked" },
+        "createdAt": { "type": "number", "description": "Epoch timestamp" }
+      },
+      "roles": {
+        "read": ["blocker"],
+        "write": ["blocker"]
+      }
+    },
+    "reports": {
+      "path": "reports/{reportId}",
+      "fields": {
+        "id": { "type": "string", "description": "Report ID" },
+        "reporterId": { "type": "string", "description": "User UID reporting the issue" },
+        "reportedUserId": { "type": "string", "description": "User UID being reported" },
+        "category": { "type": "string", "description": "Reason / category of report" },
+        "notes": { "type": "string", "description": "Optional notes from reporter" },
+        "createdAt": { "type": "number", "description": "Epoch timestamp" }
+      },
+      "roles": {
+        "read": [],
+        "write": ["reporter"]
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "SAYVI",
+  "description": "A social app for making the first move discreetly and connecting with people nearby who are open to meeting.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
